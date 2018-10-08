@@ -1,4 +1,4 @@
-import { any } from '../src/any';
+import any from '../src/any';
 
 describe('any', () => {
   it('works', () => {

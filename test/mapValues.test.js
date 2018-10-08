@@ -1,4 +1,4 @@
-import { mapValues } from '../src/mapValues';
+import mapValues from '../src/mapValues';
 
 describe('mapValues', () => {
   it('works', () => {

@@ -1,4 +1,4 @@
-import { template } from '../src/template';
+import template from '../src/template';
 
 describe('template', () => {
   it('works', () => {
