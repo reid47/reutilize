@@ -1,8 +1,12 @@
-export default (...parts) => obj => {
+export default function() {
+  const parts = [].slice.call(arguments);
   const length = parts.length;
-  for (let i = 0; i < length; i++) {
-    if (!obj) return;
-    obj = obj[parts[i]];
-  }
-  return obj;
-};
+
+  return obj => {
+    for (let i = 0; i < length; i++) {
+      if (!obj) return;
+      obj = obj[parts[i]];
+    }
+    return obj;
+  };
+}

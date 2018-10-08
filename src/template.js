@@ -1,4 +1,5 @@
-export default (literals, ...interpolations) => {
+export default function(literals) {
+  const interpolations = [].slice.call(arguments, 1);
   const literalCount = literals.length;
   const output = Array(literalCount + interpolations.length);
   const funcIndices = [];
@@ -21,4 +22,4 @@ export default (literals, ...interpolations) => {
 
     return output.join('');
   };
-};
+}
