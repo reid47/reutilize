@@ -1,1 +1,1 @@
-export default obj => null;
+export default (...funcs) => arg => funcs.reduce((acc, func) => func(acc), arg);

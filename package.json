@@ -2,16 +2,21 @@
   "name": "reutilize",
   "version": "1.0.0",
   "description": "Reusable, composable utility functions",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "node scripts/build.js"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "jest": "^23.6.0"
+    "fs-extra": "^7.0.0",
+    "jest": "^23.6.0",
+    "rollup": "^0.66.4",
+    "rollup-plugin-babel": "^4.0.3"
   }
 }
