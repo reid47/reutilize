@@ -1,5 +1,7 @@
+import slice from './slice';
+
 export default function() {
-  const parts = [].slice.call(arguments);
+  const parts = slice(arguments);
   const length = parts.length;
 
   return obj => {
