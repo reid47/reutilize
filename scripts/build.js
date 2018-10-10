@@ -53,7 +53,7 @@ async function build() {
   await fs.remove(distDir());
 
   const sourceFiles = (await fs.readdir(path.resolve(__dirname, '../src'))).filter(
-    fileName => !fileName.endsWith('.temp.js')
+    fileName => !fileName.endsWith('.temp.js') && !fileName.endsWith('.test.js')
   );
 
   const external = sourceFiles.map(sourceDir);
