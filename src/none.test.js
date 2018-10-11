@@ -1,4 +1,4 @@
-import none from '../src/none';
+import none from './none';
 
 describe('none', () => {
   it('works', () => {

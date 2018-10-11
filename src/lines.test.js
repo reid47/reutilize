@@ -1,4 +1,4 @@
-import lines from '../src/lines';
+import lines from './lines';
 
 describe('lines', () => {
   it('works', () => {

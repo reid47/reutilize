@@ -1,4 +1,4 @@
-import repeat from '../src/repeat';
+import repeat from './repeat';
 
 describe('repeat', () => {
   it('works', () => {

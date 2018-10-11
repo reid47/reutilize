@@ -1,4 +1,4 @@
-import not from '../src/not';
+import not from './not';
 
 describe('not', () => {
   it('works', () => {

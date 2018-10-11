@@ -1,4 +1,4 @@
-import randomHexString from '../src/randomHexString';
+import randomHexString from './randomHexString';
 
 describe('randomHexString', () => {
   it('works', () => {

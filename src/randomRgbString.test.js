@@ -1,4 +1,4 @@
-import randomRgbString from '../src/randomRgbString';
+import randomRgbString from './randomRgbString';
 
 describe('randomRgbString', () => {
   it('works', () => {

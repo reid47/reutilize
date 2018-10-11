@@ -1,4 +1,4 @@
-import hasProp from '../src/hasProp';
+import hasProp from './hasProp';
 
 describe('hasProp', () => {
   it('works', () => {

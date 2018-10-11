@@ -1,3 +1,5 @@
-import keys from './keys';
-
-export default func => obj => keys(obj).map(func);
+export default func => obj => {
+  const result = {};
+  for (const key in obj) result[func(key)] = obj[key];
+  return result;
+};

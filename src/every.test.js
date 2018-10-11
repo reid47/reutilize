@@ -1,4 +1,4 @@
-import every from '../src/every';
+import every from './every';
 
 describe('every', () => {
   it('works', () => {

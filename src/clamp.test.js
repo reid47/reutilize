@@ -1,4 +1,4 @@
-import clamp from '../src/clamp';
+import clamp from './clamp';
 
 describe('clamp', () => {
   it('works', () => {

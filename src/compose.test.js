@@ -1,4 +1,4 @@
-import compose from '../src/compose';
+import compose from './compose';
 
 describe('compose', () => {
   it('works with a single function', () => {
