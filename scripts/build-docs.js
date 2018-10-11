@@ -1,6 +1,9 @@
 const path = require('path');
 const fs = require('fs-extra');
+const doctrine = require('doctrine');
 
+const jsDocRegex = /\/\*\*\s*\n([^\*]|(\*(?!\/)))*\*\//;
+const sourceDir = (fileName = '') => path.resolve(__dirname, `../src/${fileName}`);
 const readmePath = path.resolve(__dirname, '../README.md');
 
 const replaceApiDocs = (readme, newDocs) => {
@@ -30,13 +33,21 @@ async function buildDocs() {
     fileName => !fileName.endsWith('.temp.js') && !fileName.endsWith('.test.js')
   );
 
-  const docs = sourceFiles
-    .sort()
-    .map(fileName => {
+  const docs = (await Promise.all(
+    sourceFiles.sort().map(async fileName => {
       const moduleName = fileName.replace('.js', '');
-      return `### \`${moduleName}\``;
+      const lines = [`### \`${moduleName}\``, `[source](/src/${fileName})`];
+      const fileContents = (await fs.readFile(sourceDir(fileName))).toString();
+      const jsDoc = (fileContents.match(jsDocRegex) || {})[0];
+      if (jsDoc) {
+        const { description, tags } = doctrine.parse(jsDoc, { unwrap: true });
+        lines.push(description, '');
+        const example = tags.find(tag => tag.title === 'example');
+        if (example) lines.push('```js', example.description, '```');
+      }
+      return lines.join('\n');
     })
-    .join('\n');
+  )).join('\n\n');
 
   const readme = (await fs.readFile(readmePath)).toString();
   const newReadmeContents = replaceApiDocs(readme, docs);
