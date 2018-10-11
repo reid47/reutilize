@@ -5,6 +5,11 @@ const babel = require('rollup-plugin-babel');
 
 const sourceDir = (fileName = '') => path.resolve(__dirname, `../src/${fileName}`);
 const distDir = (fileName = '') => path.resolve(__dirname, `../dist/${fileName}`);
+const readmePath = path.resolve(__dirname, '../README.md');
+
+const replaceApiDocs = (readme, newDocs) => {
+  return readme.replace(/\<\!\-\-BEGIN_API_DOCS\-\-\>.*\<\!\-\-END_API_DOCS\-\-\>/, newDocs);
+};
 
 async function buildModule({ fileName, external }) {
   const bundle = await rollup({
@@ -49,6 +54,19 @@ async function buildIndex({ sourceFiles }) {
   await fs.unlink(tempFile);
 }
 
+async function buildApiDocs({ sourceFiles }) {
+  const docs = sourceFiles
+    .map(fileName => {
+      const moduleName = fileName.replace('.js', '');
+      return `### ${moduleName}`;
+    })
+    .join('\n');
+
+  const readme = (await fs.readFile(readmePath)).toString();
+  const newReadmeContents = replaceApiDocs(readme, docs);
+  await fs.writeFile(readmePath, newReadmeContents, 'utf8');
+}
+
 async function build() {
   await fs.remove(distDir());
 
@@ -59,6 +77,7 @@ async function build() {
   const external = sourceFiles.map(sourceDir);
   await sourceFiles.map(fileName => buildModule({ fileName, external }));
   await buildIndex({ sourceFiles });
+  await buildApiDocs({ sourceFiles });
 }
 
 build();

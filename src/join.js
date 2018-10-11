@@ -1,1 +1,1 @@
-export default separator => arr => arr.join(separator);
+export default separator => arr => arr.join(separator || '');

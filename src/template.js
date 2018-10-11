@@ -1,25 +1,26 @@
-import slice from './slice';
-
 export default function(literals) {
-  const interpolations = slice(arguments, 1);
   const literalCount = literals.length;
-  const output = Array(literalCount + interpolations.length);
+  const interpolationCount = arguments.length - 1;
+  const output = Array(literalCount + interpolationCount);
   const funcIndices = [];
 
   let count = 0;
   for (let i = 0; i < literalCount; i++) {
     output[count++] = literals[i];
     if (i < literalCount - 1) {
-      const interp = interpolations[i];
+      const interp = arguments[i + 1];
       output[count] = interp;
       if (typeof interp === 'function') funcIndices.push(count);
       count++;
     }
   }
 
+  const funcCount = funcIndices.length;
+
   return context => {
-    for (let i = 0, length = funcIndices.length; i < length; i++) {
-      output[funcIndices[i]] = output[funcIndices[i]](context);
+    for (let i = 0; i < funcCount; i++) {
+      const func = funcIndices[i];
+      output[func] = output[func](context);
     }
 
     return output.join('');
